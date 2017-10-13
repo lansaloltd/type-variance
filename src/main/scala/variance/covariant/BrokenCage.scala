@@ -5,7 +5,7 @@ package variance.covariant
   * "covariant type A occurs in contravariant position in type List[A] of value animals_="
   * error message at compile time
   */
-class BrokenCage[+A](var animals: List[A]) {
+class BrokenCage[+A]/*(var animals: List[A])*/ {
 
   // as animals is a var, the compiler would provide automatically a
   // def animals=(a: List[A]): Unit method as a setter
