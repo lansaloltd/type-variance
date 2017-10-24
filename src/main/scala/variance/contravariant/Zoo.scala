@@ -31,18 +31,16 @@ import kingdom.animalia.vertebrate.mammal.Mammal
   */
 class Zoo {
 
-  var contravariantCage: Cage[Mammal] = null
+  val mammalCage: Cage[Mammal] = new variance.contravariant.Cage[Mammal]
 
-  contravariantCage = new variance.contravariant.Cage[Mammal]
+  val vertebrateCage: Cage[Mammal] = new variance.contravariant.Cage[Vertebrate]
 
-  contravariantCage = new variance.contravariant.Cage[Vertebrate]
-
-  contravariantCage = new variance.contravariant.Cage[Animal]
+  val animalCage: Cage[Mammal] = new variance.contravariant.Cage[Animal]
 
   // type mismatch error
-  // contravariantCage = new variance.contravariant.Cage[Primate]
+  // val primateCage: Cage[Mammal] = new variance.contravariant.Cage[Primate]
 
   // type mismatch error
-  // contravariantCage = new variance.contravariant.Cage[Mollusc]
+  // val molluscCage: Cage[Mammal] = new variance.contravariant.Cage[Mollusc]
 
 }

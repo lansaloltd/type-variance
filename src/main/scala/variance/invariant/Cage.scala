@@ -1,5 +1,3 @@
 package variance.invariant
 
-class Cage[A] {
-
-}
+class Cage[A]

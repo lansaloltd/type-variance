@@ -31,18 +31,16 @@ import kingdom.animalia.vertebrate.mammal.primate.homo.Homo
   */
 class Zoo {
 
-  var covariantCage: Cage[Mammal] = null
+  val mammalCage: Cage[Mammal] = new Cage[Mammal]
 
-  covariantCage = new Cage[Mammal]
+  val primateCage: Cage[Mammal] = new Cage[Primate]
 
-  covariantCage = new Cage[Primate]
-
-  covariantCage = new Cage[Homo]
+  val homoCage: Cage[Mammal] = new Cage[Homo]
 
   // type mismatch error
-  // covariantCage = new Cage[Reptile]
+  // val reptileCage: Cage[Mammal] = new Cage[Reptile]
 
   // type mismatch error
-  // covariantCage = new Cage[Vertebrate]
+  // val vertebrateCage: Cage[Mammal] = new Cage[Vertebrate]
 
 }

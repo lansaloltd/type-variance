@@ -29,20 +29,18 @@ import kingdom.animalia.vertebrate.mammal.Mammal
   */
 class Zoo {
 
-  var invariantCage: Cage[Mammal] = null
-
-  invariantCage = new Cage[Mammal]
+  val mammalCage: Cage[Mammal] = new Cage[Mammal]
 
   /**
     * [error] Note: kingdom.animalia.vertebrate.mammal.primate.Primate <: kingdom.animalia.vertebrate.mammal.Mammal, but class Cage is invariant in type A.
     * [error] You may wish to define A as +A instead.
     */
-  // invariantCage = new Cage[Primate]
+   // val primateCage: Cage[Mammal] = new Cage[Primate]
 
   /**
     * [error] Note: kingdom.animalia.vertebrate.Vertebrate >: kingdom.animalia.vertebrate.mammal.Mammal, but class Cage is invariant in type A.
     * [error] You may wish to define A as -A instead.
     */
-  // invariantCage = new Cage[Vertebrate]
+  // val vertebrateCage: Cage[Mammal] = new Cage[Vertebrate]
 
 }

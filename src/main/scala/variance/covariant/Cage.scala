@@ -1,5 +1,3 @@
 package variance.covariant
 
-class Cage[+A] {
-
-}
+class Cage[+A]
