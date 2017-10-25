@@ -1,4 +1,4 @@
-package variance.example
+package variance.covariant
 
 sealed trait Option[+A]
 
