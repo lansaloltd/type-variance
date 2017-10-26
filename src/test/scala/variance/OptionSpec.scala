@@ -7,66 +7,87 @@ import org.scalatest.{FreeSpec, Matchers}
 
 class OptionSpec extends FreeSpec with Matchers {
 
-  "The standard scala Option has the following properties" - {
-    import variance.covariant.{None, Option, Some}
-    "Test 1: Because Option is covariant, I can assign a Option[Primate] to a Option[Mammal]" in {
-      val optionalMammal: Option[Mammal] = Some(new Primate)
+  "The standard scala Option has the following properties:" - {
+    import variance.covariant.{None => NoneE, Option => OptionE, Some => SomeE}
 
-      // But not a Vertebrate
-      //val contravariantlMammal: Option[Mammal] = Some(new Vertebrate)
+    "Test 1: Because Option is covariant, I can assign an Option[Primate] to an Option[Mammal]" in {
+      var optionalMammal: OptionE[Mammal] = SomeE(new Mammal)
+      val optionalPrimate: OptionE[Primate] = SomeE(new Primate)
+
+      optionalMammal = optionalPrimate
+
+      // But not a Vertebrate (won't compile)
+      // val contravariantlMammal: OptionE[Mammal] = OptionE(new Vertebrate)
     }
 
-    "Test 2: We can even assign an Option[Nothing] to an Option[Nothing]" in {
-      var optionalMammal: Option[Mammal] = None
-      val optionNone: Option[Nothing] = None
+    "Test 2: Same for Some, because is covariant, I can assign a Some[Primate] to a Some[Mammal]" in {
+      var someMammal: SomeE[Mammal] = SomeE(new Mammal)
+      val somePrimate: SomeE[Primate] = SomeE(new Primate)
+
+      someMammal = somePrimate
+    }
+
+    "Test 3: We can even assign an Option[Nothing] to an Option[Mammal]" in {
+      var optionalMammal: OptionE[Mammal] = NoneE
+      val optionNothing: OptionE[Nothing] = NoneE
 
       // As Nothing is a subtype of any type
-      optionalMammal = optionNone
+      optionalMammal = optionNothing
     }
   }
 
-  "An invariant version of Option (but where Some is still covariant, has the following properties" - {
-    import variance.invariant.Option
+  "An covariant version of Option (but where Some is invariant), has the following properties:" - {
+    import variance.invariant.mixed.{None => NoneE, Option => OptionE, Some => SomeE}
+
+    "Test 3: We can still assign an Option[Primate] to an Option[Mammal]" in {
+      var optionalMammal: OptionE[Mammal] = SomeE(new Mammal)
+      val optionalPrimate: OptionE[Primate] = SomeE(new Primate)
+
+      optionalMammal = optionalPrimate
+    }
+    "Test 4: But we can NOT assign a Some[Primate] to a Some[Mammal]" in {
+      var someMammal: SomeE[Mammal] = SomeE(new Mammal)
+      val somePrimate: SomeE[Primate] = SomeE(new Primate)
+
+      // This won't compile
+      // someMammal = somePrimate
+    }
+    "Test 5: We can still assign a None to Option[Mammal]" in {
+      // Because Option is covariant
+      val somelMammal: OptionE[Mammal] = NoneE
+    }
+  }
+
+  "An invariant version of Option, has the following properties:" - {
+    import variance.invariant.{None => NoneE, Option => OptionE, Some => SomeE}
+
     "Test 3: Because Option is invariant, I can NOT assign a Option[Primate] to a Option[Mammal]" in {
-      // Both won't compile!
-      // val optionalMammal: Option[Mammal] = Some(new Primate)
-      // val optionalMammal: Option[Mammal] = Some(new Mammal)
+      var optionalMammal: OptionE[Mammal] = SomeE(new Mammal)
+      val optionalPrimate: OptionE[Primate] = SomeE(new Primate)
+
+      // This won't compile
+      // optionalMammal = optionalPrimate
     }
 
-    "Test 4: But Some with its Type Bounds allow a Some(Primate) to be assigned to a Some[Mammal]" in {
-      val somelMammal: Some[Mammal] = Some(new Primate)
+    "Test 6: Because Some is invariant, I can NOT assign a Some[Primate] to a Some[Mammal]" in {
+      var someMammal: SomeE[Mammal] = SomeE(new Mammal)
+      val somePrimate: SomeE[Primate] = SomeE(new Primate)
 
-      val mammalammal: Some[Mammal] = Some(new Mammal)
-
-      // But not a Vertebrate
-      // val contravariantlMammal: Some[Mammal] = Some(new Vertebrate)
+      // Won't compile.
+      // someMammal = somePrimate
     }
 
-    "Test 5: An other interesting thing is that we CAN NOT assige a None to Option[Mammal]" in {
+    "Test 5: An other interesting thing is that we CAN NOT assign a None to Option[Mammal]" in {
       // This won't compile:
-      // val somelMammal: Option[Mammal] = None
+      // val somelMammal: OptionE[Mammal] = NoneE
 
       /*
       Nothing is a subtype of any type but this time Option is invariant so we CAN'T assign
       to an Option[Mammal] anything that is not an Option[Mammal], so not an Option[Nothing],
-      not None which extends Option[Nothing]
+      nor None which extends Option[Nothing]
        */
     }
-  }
-
-  "If we make Option fully invariant (like in variance.invariant.fully.Option) then lose also the covariance for Some" - {
-    import variance.invariant.fully.{None, Option, Some}
-
-    "Test 6: An other interesting thing is that we CAN NOT assige a None to Option[Mammal]" in {
-      val mammalammal: variance.invariant.fully.Some[Mammal] = Some(new Mammal)
-
-      val somelMammal: variance.invariant.fully.Some[Mammal] = Some(new Primate)
-
-
-    }
 
   }
-
-
 
 }
