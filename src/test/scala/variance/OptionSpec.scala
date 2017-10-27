@@ -85,6 +85,12 @@ class OptionSpec extends FreeSpec with Matchers {
       Nothing is a subtype of any type but this time Option is invariant so we CAN'T assign
       to an Option[Mammal] anything that is not an Option[Mammal], so not an Option[Nothing],
       nor None which extends Option[Nothing]
+
+      Interestingly, we could get around it with an upper type bound defining Option trait like:
+
+      sealed trait Option[A <: Nothing]
+
+      But I let you imagine the usefulness of such Option type ;-)
        */
     }
 

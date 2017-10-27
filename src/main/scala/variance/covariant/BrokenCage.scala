@@ -5,26 +5,26 @@ package variance.covariant
   * "covariant type A occurs in contravariant position in type List[A] of value animals_="
   * error message at compile time
   */
-class BrokenCage[+A]/*(var animals: List[A])*/ {
+//class BrokenCage[+A]/*(var animals: List[A])*/ {
 
   // as animals is a var, the compiler would provide automatically a
   // def animals=(a: List[A]): Unit method as a setter
 
+//}
+
+
+
+//Let's assume for the sick of the discussion that the compiler let us have something like a:
+
+class BrokenCage[+A] {
+
+  //def addGuest(animal: A): Unit = {
+    // maybe setting some local variable
+  //}
+
 }
 
 /*
-
-Let's assume for the sick of the discussion that the compiler let us have something like a:
-
-class BrokenCage[+A](var animals: List[A]) {
-
-  private var animals: List[A]
-
-  def animals_=(a: List[A]): Unit = {
-    animals = a
-  }
-
-}
 
 Because BrokenCage is covariant in A, BrokenCage[Primate] is a subtype of BrokenCage[Animal]
 and, as we saw in the correspondent covariance.Zoo class we can assign a Cage[Primate] to a Cage[Mammal]
