@@ -39,20 +39,20 @@ class OptionSpec extends FreeSpec with Matchers {
   "An covariant version of Option (but where Some is invariant), has the following properties:" - {
     import variance.invariant.mixed.{None => NoneE, Option => OptionE, Some => SomeE}
 
-    "Test 3: We can still assign an Option[Primate] to an Option[Mammal]" in {
+    "Test 4: We can still assign an Option[Primate] to an Option[Mammal]" in {
       var optionalMammal: OptionE[Mammal] = SomeE(new Mammal)
       val optionalPrimate: OptionE[Primate] = SomeE(new Primate)
 
       optionalMammal = optionalPrimate
     }
-    "Test 4: But we can NOT assign a Some[Primate] to a Some[Mammal]" in {
+    "Test 5: But we can NOT assign a Some[Primate] to a Some[Mammal]" in {
       var someMammal: SomeE[Mammal] = SomeE(new Mammal)
       val somePrimate: SomeE[Primate] = SomeE(new Primate)
 
       // This won't compile
       // someMammal = somePrimate
     }
-    "Test 5: We can still assign a None to Option[Mammal]" in {
+    "Test 6: We can still assign a None to Option[Mammal]" in {
       // Because Option is covariant
       val somelMammal: OptionE[Mammal] = NoneE
     }
@@ -61,7 +61,7 @@ class OptionSpec extends FreeSpec with Matchers {
   "An invariant version of Option, has the following properties:" - {
     import variance.invariant.{None => NoneE, Option => OptionE, Some => SomeE}
 
-    "Test 3: Because Option is invariant, I can NOT assign a Option[Primate] to a Option[Mammal]" in {
+    "Test 7: Because Option is invariant, I can NOT assign a Option[Primate] to a Option[Mammal]" in {
       var optionalMammal: OptionE[Mammal] = SomeE(new Mammal)
       val optionalPrimate: OptionE[Primate] = SomeE(new Primate)
 
@@ -69,7 +69,7 @@ class OptionSpec extends FreeSpec with Matchers {
       // optionalMammal = optionalPrimate
     }
 
-    "Test 6: Because Some is invariant, I can NOT assign a Some[Primate] to a Some[Mammal]" in {
+    "Test 8: Because Some is invariant, I can NOT assign a Some[Primate] to a Some[Mammal]" in {
       var someMammal: SomeE[Mammal] = SomeE(new Mammal)
       val somePrimate: SomeE[Primate] = SomeE(new Primate)
 
@@ -77,21 +77,9 @@ class OptionSpec extends FreeSpec with Matchers {
       // someMammal = somePrimate
     }
 
-    "Test 5: An other interesting thing is that we CAN NOT assign a None to Option[Mammal]" in {
+    "Test 9: An other interesting thing is that we CAN NOT assign a None to Option[Mammal]" in {
       // This won't compile:
       // val somelMammal: OptionE[Mammal] = NoneE
-
-      /*
-      Nothing is a subtype of any type but this time Option is invariant so we CAN'T assign
-      to an Option[Mammal] anything that is not an Option[Mammal], so not an Option[Nothing],
-      nor None which extends Option[Nothing]
-
-      Interestingly, we could get around it with an upper type bound defining Option trait like:
-
-      sealed trait Option[A <: Nothing]
-
-      But I let you imagine the usefulness of such Option type ;-)
-       */
     }
 
   }

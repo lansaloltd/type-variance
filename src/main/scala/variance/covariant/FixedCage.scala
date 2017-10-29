@@ -1,9 +1,4 @@
 package variance.covariant
 
-class FixedCage[+A] {
+class FixedCage[+A, B <: A](var guest: B)
 
-  def addGuest[B, B <: A](animal: B): Unit = {
-    // maybe setting some local variable
-  }
-
-}
